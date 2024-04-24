@@ -1,0 +1,734 @@
+{
+  "columns": [
+    {
+      "name": "Author_ID",
+      "datatype": "Int64",
+      "bit_settings": "",
+      "values": [
+        932649,
+        168988,
+        987934,
+        4209839,
+        816336,
+        112106,
+        374982,
+        339222,
+        361080,
+        7231860,
+        176498,
+        47013,
+        5705010,
+        944939,
+        217589,
+        120090,
+        1398000,
+        199326,
+        1393401,
+        188548,
+        171256,
+        62517,
+        46024,
+        241381,
+        154057,
+        1395316,
+        60451,
+        336611,
+        1152009,
+        207851,
+        208295,
+        73245,
+        37055,
+        1057592,
+        23830,
+        334995,
+        8803269,
+        109070,
+        82563,
+        1232897,
+        271913,
+        313645,
+        154873,
+        1020695,
+        83167,
+        995506,
+        742121,
+        5701132,
+        598887,
+        247596,
+        10735996,
+        7217144,
+        361736,
+        118756,
+        842075,
+        173436,
+        49737,
+        43958,
+        92715,
+        1101637,
+        632902,
+        853688,
+        2777024,
+        65225,
+        695989,
+        324335,
+        1333714,
+        217660,
+        924733,
+        946984,
+        162742,
+        145489
+      ]
+    },
+    {
+      "name": "Contributed_Articles",
+      "datatype": {
+        "List": "Int32"
+      },
+      "bit_settings": "FAST_EXPLODE_LIST",
+      "values": [
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            16
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            22
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            11
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            11
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            22
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            14,
+            17
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            7
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            22
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            7
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            23
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            7
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            16
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            10,
+            25,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            11
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            16
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            10,
+            18,
+            25,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            3,
+            5
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            6,
+            10,
+            14,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            1
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            3,
+            5,
+            6,
+            10,
+            14,
+            17,
+            18,
+            25,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            2
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            6
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            14,
+            18
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            10
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            1,
+            13
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            9
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            15
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            1,
+            15
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            20
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            24
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            2
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            1,
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            23
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            17
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            14,
+            15,
+            17,
+            18,
+            25,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            7
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            6
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            21
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            3,
+            5
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            6
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            20
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            6
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            25,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            2
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            8
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            1
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            4
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            3,
+            5,
+            6,
+            10,
+            13,
+            14,
+            17,
+            18,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            10
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            10
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            23
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            6,
+            10,
+            14,
+            17,
+            18
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            12
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            7
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            1,
+            15
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            15
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            5,
+            10,
+            14,
+            25,
+            26
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            20
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            3,
+            5,
+            6,
+            8,
+            14
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            12,
+            19
+          ]
+        },
+        {
+          "name": "",
+          "datatype": "Int32",
+          "bit_settings": "",
+          "values": [
+            12
+          ]
+        }
+      ]
+    }
+  ]
+}
