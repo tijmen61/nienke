@@ -140,13 +140,6 @@ rename_rules = {
 }
 
 
-def get_filter_list_from_csv(excel_path, column_name='Author_ID'):
-    df = pl.read_excel(excel_path)
-
-    filter_list = df.select(column_name).cast(pl.Int32).to_series().to_list()
-    return filter_list
-
-
 def process_csv(csv_path, columns, filter_list):
     df = pl.read_csv(csv_path, columns=columns)
     print(df.shape)
@@ -206,56 +199,48 @@ def extract_category_and_year(file_name):
         return None, None
 
 
+def extract_author_articles_and_ids(csv_path):
+    df_authors = pl.read_csv(csv_path, separator=';')
+    article_columns = [col for col in df_authors.columns if col.startswith('ArticleID_')]
+    df_authors_long = df_authors.melt(id_vars=["Author_ID"], value_vars=article_columns,
+                                      value_name="Article_ID").filter(
+        pl.col("Article_ID").is_not_null())
+
+    f_authors_long = df_authors_long.with_columns(
+        pl.col("variable").str.extract(r"ArticleID_([0-9]+)", 1).cast(pl.Int32).alias("Article_Num")
+    )
+
+    df_authors_grouped = f_authors_long.group_by(["Author_ID"]).agg(
+        pl.col("Article_Num").alias("Contributed_Articles")
+    )
+
+    # Extract the filter list of Author IDs
+    filter_list = df_authors.select("Author_ID").cast(pl.Int32).to_series().to_list()
+
+    return df_authors_grouped, filter_list
+
+
 if __name__ == '__main__':
     data_dir = "data"
     results_dir = "results"
     os.makedirs(results_dir, exist_ok=True)
 
-    df_authors = pl.read_csv('AuthorID.csv', separator=';')
-    print(df_authors)
+    df_authors, list_of_ids = extract_author_articles_and_ids('AuthorID.csv')
 
-    article_columns = [f"ArticleID_{i}" for i in range(1, 27)]  # Adjust the range as necessary
-    print(article_columns)
+    dataframes = []
 
-    df_authors_long = df_authors.melt(id_vars=["Author_ID"], value_vars=article_columns,
-                                      value_name="Article_ID").filter(
-        pl.col("Article_ID").is_not_null())
-    print(df_authors_long)
+    for zip_file in os.listdir(data_dir):
+        if zip_file.endswith('.ZIP'):
+            zip_path = os.path.join(data_dir, zip_file)
+            dataframes.extend(process_zip(zip_path, list_of_ids))
 
-    f_authors_long = df_authors_long.with_columns(
-        pl.col("variable").str.extract(r"ArticleID_([0-9]+)", 1).cast(pl.Int32).alias("Article_Num")
+    combined_df = pl.concat(dataframes, how="diagonal")
+    df_primary_with_articles = combined_df.join(df_authors, left_on="Profile_ID", right_on="Author_ID", how="left")
+
+    df_primary_with_articles_string = df_primary_with_articles.with_columns(
+        pl.col("Contributed_Articles").map_elements(lambda x: ', '.join(map(str, x))).alias("Contributed_Articles")
     )
-    print(f_authors_long)
 
-    # Now group by Author_ID and aggregate the article numbers into lists
-    df_authors_grouped = f_authors_long.group_by(["Author_ID"]).agg(
-        pl.col("Article_Num").alias("Contributed_Articles")
-    )
-    print(df_authors_grouped)
+    df_primary_with_articles_string.write_csv(os.path.join(results_dir, 'FINAL.csv'))
 
-    df_authors_final = df_authors_grouped.drop_nulls()
-    df_authors_final.write_json("authors.json")
-    print(df_authors_final)
-    # Verify the result
-    # print(df_authors_long)
-    #
-    # df_authors_grouped = df_authors_long.group_by("Author_ID").agg(
-    #     pl.col("Article_ID").alias("Contributed_Articles"))
-    # print(df_authors_grouped.head())
-
-    # df_primary_with_articles = df_primary.join(df_authors_grouped, left_on="Profile_ID", right_on="Author_ID",
-    #                                            how="left")
-
-    # list_of_ids = get_filter_list_from_csv('author_data.csv')
-
-    # dataframes = []
-    #
-    # for zip_file in os.listdir(data_dir):
-    #     if zip_file.endswith('.ZIP'):
-    #         zip_path = os.path.join(data_dir, zip_file)
-    #         dataframes.extend(process_zip(zip_path, list_of_ids))
-    #
-    # combined_df = pl.concat(dataframes, how="diagonal")
-    # combined_df.write_csv(os.path.join(results_dir, 'COMBINED.csv'))
-    #
-    # print(combined_df.shape)
+    print("FINAL SIZE: ", combined_df.shape)
