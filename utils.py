@@ -1,9 +1,15 @@
+"""
+This script processes zipped CSV files containing physician payment data,
+extracts relevant information, and combines it with author data to generate a final CSV file.
+"""
+
 import os
 import re
-import polars as pl
+import polars as pl  # Polars is a DataFrame library optimized for performance
 import tempfile
 import zipfile
 
+# Dictionary mapping year ranges to their respective column names for different categories
 columns_dict = {
     '2013,2014,2015': {
         "GNRL": [
@@ -92,6 +98,7 @@ columns_dict = {
     },
 }
 
+# Dictionary for renaming columns based on the year and category
 rename_rules = {
     '2013,2014,2015': {
         'GNRL': {
@@ -136,11 +143,18 @@ rename_rules = {
             'Physician_Last_Name': 'Last_Name'
         }
     },
-
 }
 
 
 def process_csv(csv_path, columns, filter_list):
+    """
+    Process a CSV file to filter and sort its data.
+
+    :param csv_path: Path to the CSV file.
+    :param columns: List of columns to read from the CSV file.
+    :param filter_list: List of filter values for the first column.
+    :return: Filtered DataFrame.
+    """
     df = pl.read_csv(csv_path, columns=columns)
     print(df.shape)
 
@@ -153,6 +167,13 @@ def process_csv(csv_path, columns, filter_list):
 
 
 def process_zip(path, filter):
+    """
+    Process a ZIP file containing CSV files, extract relevant data and apply filters.
+
+    :param path: Path to the ZIP file.
+    :param filter: List of filter values for the first column in CSV files.
+    :return: List of processed DataFrames.
+    """
     with tempfile.TemporaryDirectory() as temp_dir:
         with zipfile.ZipFile(path, 'r') as zip_ref:
             zip_ref.extractall(temp_dir)
@@ -181,6 +202,14 @@ def process_zip(path, filter):
 
 
 def rename_cols(df, category, year):
+    """
+    Rename columns in the DataFrame based on the provided category and year.
+
+    :param df: DataFrame to rename columns.
+    :param category: Data category (GNRL, RSRCH, OWNRSHP).
+    :param year: Year of the data.
+    :return: DataFrame with renamed columns.
+    """
     for year_range, categories in rename_rules.items():
         if year in year_range.split(','):
             if category in categories:
@@ -190,6 +219,12 @@ def rename_cols(df, category, year):
 
 
 def extract_category_and_year(file_name):
+    """
+    Extract the category and year from the file name.
+
+    :param file_name: File name string.
+    :return: Tuple of (category, year) if matched, otherwise (None, None).
+    """
     match = re.search(r'OP_DTL_([A-Z]+)_PGYR(\d{4})', file_name)
     if match:
         category = match.group(1)
@@ -200,6 +235,12 @@ def extract_category_and_year(file_name):
 
 
 def extract_author_articles_and_ids(csv_path):
+    """
+    Extract author articles and IDs from a CSV file.
+
+    :param csv_path: Path to the author CSV file.
+    :return: DataFrame of authors and their articles, and a filter list of author IDs.
+    """
     df_authors = pl.read_csv(csv_path, separator=';')
     article_columns = [col for col in df_authors.columns if col.startswith('ArticleID_')]
     df_authors_long = df_authors.melt(id_vars=["Author_ID"], value_vars=article_columns,
@@ -220,27 +261,51 @@ def extract_author_articles_and_ids(csv_path):
     return df_authors_grouped, filter_list
 
 
+def extract_date_from_filename(filename):
+    """
+    Extract date from the filename.
+
+    :param filename: Filename string.
+    :return: Extracted date string in YYYYMMDD format if found, otherwise None.
+    """
+    match = re.search(r'\d{8}', filename)
+    if match:
+        return match.group(0)
+    return None
+
+
 if __name__ == '__main__':
-    data_dir = "data"
-    results_dir = "results"
+    data_dir = "data"  # Directory containing the data ZIP files
+    results_dir = "results"  # Directory to save the results
     os.makedirs(results_dir, exist_ok=True)
 
-    df_authors, list_of_ids = extract_author_articles_and_ids('AuthorID.csv')
+    author_id_file = 'authors/AuthorID_20240628.csv'
+    date_str = extract_date_from_filename(author_id_file)
+
+    # Extract author data and list of IDs
+    df_authors, list_of_ids = extract_author_articles_and_ids(author_id_file)
 
     dataframes = []
 
+    # Process each ZIP file in the data directory
     for zip_file in os.listdir(data_dir):
         if zip_file.endswith('.ZIP'):
             zip_path = os.path.join(data_dir, zip_file)
             dataframes.extend(process_zip(zip_path, list_of_ids))
 
+    # Combine all processed DataFrames
     combined_df = pl.concat(dataframes, how="diagonal")
+
+    # Join with author data
     df_primary_with_articles = combined_df.join(df_authors, left_on="Profile_ID", right_on="Author_ID", how="left")
 
+    # Convert list of contributed articles to string
     df_primary_with_articles_string = df_primary_with_articles.with_columns(
         pl.col("Contributed_Articles").map_elements(lambda x: ', '.join(map(str, x))).alias("Contributed_Articles")
     )
 
-    df_primary_with_articles_string.write_csv(os.path.join(results_dir, 'FINAL.csv'))
+    final_filename = f'FINAL_{date_str}.csv'
+    df_primary_with_articles_string.write_csv(os.path.join(results_dir, final_filename))
 
     print("FINAL SIZE: ", combined_df.shape)
+    print(f"File saved as {final_filename}")
